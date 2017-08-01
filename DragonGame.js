@@ -1,6 +1,4 @@
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -12,14 +10,6 @@ function hitpointReport(playerHP) {
     console.log("You have " + playerHP + "HP remaining.");
     playerHPBar(playerHP);
   }
-}
-
-function getPlayerHit() {
-  return Math.random() < 0.65;
-}
-
-function getPlayerDamage() {
-  return getRandomInt(1, 2500);
 }
 
 function getDragonAttack() {
@@ -72,16 +62,11 @@ function dragonHPBar(dragonHP, dragonTotalHP) {
   console.log("[" + bar + "] (" + hitpointsPercent + ")%");
 }
 
-function main(playerHP) {
-  
-  var dragonTotalHP = getRandomInt(15000, 50000);
-  var dragonHP = dragonTotalHP;
-  while(playerHP > 0){
-    
-  console.log("The dragon has " + dragonHP + "HP.");
-  console.log("It roars as you advance to attack it.");
-      if(getPlayerHit()) {
-          var damage = getPlayerDamage();
+function attackDragon() {
+  // Player has 65% chance of hitting.
+      if(Math.random() < 0.65) {
+          // Player damage is a random int from 1 to 2500
+          var damage = getRandomInt(1, 2500);
           if (Math.random() < 0.9) {
             console.log("You swing your sword and hit the dragon for " +
              damage + "HP.");
@@ -91,7 +76,6 @@ function main(playerHP) {
           dragonHP -= damage;
           if(dragonHP <= 0) {
               console.log("You have slain the mighty dragon.");
-              break;
           } else {
             console.log("The dragon has " + dragonHP + "HP remaining.");
             dragonHPBar(dragonHP, dragonTotalHP);
@@ -107,8 +91,10 @@ function main(playerHP) {
           console.log("The dragon has " + dragonHP + "HP remaining.");
           dragonHPBar(dragonHP, dragonTotalHP);
       }
-      
-      var dragonAttack = getDragonAttack();
+}
+
+function dragonAttack() {
+  var dragonAttack = getDragonAttack();
       if(dragonAttack < 1) { // Dragon missed.
         if (Math.random() < 0.25) {
           console.log("You raise your shield and block the dragon's attack.");
@@ -118,7 +104,6 @@ function main(playerHP) {
           console.log("The dragon misses you.");
         }
         hitpointReport(playerHP);
-        continue;
       } else if(dragonAttack < 2) { // Dragon breath attack
         var dragonBreathDamage = getDragonBreathDamage();
         console.log("You raise your shield but the dragon breaths fire, " +
@@ -131,12 +116,25 @@ function main(playerHP) {
         playerHP -= dragonMaulDamage;
         hitpointReport(playerHP);
       }
-  }
+}
+
+function main(playerHP) {
+  while(playerHP > 0){
+    // Spawns a dragon
+    var dragonTotalHP = getRandomInt(15000, 50000);
+    var dragonHP = dragonTotalHP;
+  console.log("The dragon has " + dragonHP + "HP.");
+  console.log("It roars as you advance to attack it.");
+    while (dragonHP > 0){
+      attackDragon();
+      dragonAttack();
+    }
   dragonsSlain += 1;
+  }
   return playerHP;
 }
 
 var playerHP = 100;
 var dragonsSlain = 0;
 
-playerHP = main(playerHP);
+main(playerHP);

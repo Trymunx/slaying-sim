@@ -45,7 +45,7 @@ function playerHPBar(playerHP) {
   for (i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  console.log("[" + bar + "] (" + hitpointsPercent + ")%");
+  console.log("[" + bar + "] (" + hitpointsPercent + "%)");
 }
 
 function dragonHPBar(dragonHP, dragonTotalHP) {
@@ -59,42 +59,56 @@ function dragonHPBar(dragonHP, dragonTotalHP) {
   for (i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  console.log("[" + bar + "] (" + hitpointsPercent + ")%");
+  console.log("[" + bar + "] (" + hitpointsPercent + "%)");
 }
 
-function attackDragon() {
-  // Player has 65% chance of hitting.
-      if(Math.random() < 0.65) {
-          // Player damage is a random int from 1 to 2500
-          var damage = getRandomInt(1, 2500);
-          if (Math.random() < 0.9) {
-            console.log("You swing your sword and hit the dragon for " +
-             damage + "HP.");
-          } else {
-            console.log("You kick the dragon and do " + damage + " damage.");
-          }
-          dragonHP -= damage;
-          if(dragonHP <= 0) {
-              console.log("You have slain the mighty dragon.");
-          } else {
-            console.log("The dragon has " + dragonHP + "HP remaining.");
-            dragonHPBar(dragonHP, dragonTotalHP);
-          }
-      } else {
-          if (Math.random() < 1/3) {
-            console.log("Your attack does no damage to the dragon.");
-          } else if (Math.random() < 0.5) {
-            console.log("Your attack glances off the dragon's scales.")
-          } else {
-            console.log("You miss the dragon.");
-          }
+function playerAttack() {
+}
+
+function main(playerHP) {
+  
+  // Spawns a dragon
+  var dragonTotalHP = getRandomInt(15000, 50000);
+  var dragonHP = dragonTotalHP;
+
+  console.log("The dragon has " + dragonHP + "HP.");
+  console.log("It roars as you advance to attack it.");
+  
+  while(playerHP > 0){
+    // Player attacks
+    // Player has 65% chance of hitting.
+    if(Math.random() < 0.65) {
+        // Player damage is a random int from 1 to 2500
+        var damage = getRandomInt(1, 2500);
+        if (Math.random() < 0.9) {
+          console.log("You swing your sword and hit the dragon for " +
+           damage + "HP.");
+        } else {
+          console.log("You kick the dragon and do " + damage + " damage.");
+        }
+        dragonHP -= damage;
+        if(dragonHP <= 0) {
+            console.log("You have slain the mighty dragon.");
+            dragonsSlain++;
+            break;
+        } else {
           console.log("The dragon has " + dragonHP + "HP remaining.");
           dragonHPBar(dragonHP, dragonTotalHP);
-      }
-}
-
-function dragonAttack() {
-  var dragonAttack = getDragonAttack();
+        }
+    } else {
+        if (Math.random() < 1/3) {
+          console.log("Your attack does no damage to the dragon.");
+        } else if (Math.random() < 0.5) {
+          console.log("Your attack glances off the dragon's scales.")
+        } else {
+          console.log("You miss the dragon.");
+        }
+        console.log("The dragon has " + dragonHP + "HP remaining.");
+        dragonHPBar(dragonHP, dragonTotalHP);
+    }
+    
+    // Dragon attacks
+    var dragonAttack = getDragonAttack();
       if(dragonAttack < 1) { // Dragon missed.
         if (Math.random() < 0.25) {
           console.log("You raise your shield and block the dragon's attack.");
@@ -116,20 +130,6 @@ function dragonAttack() {
         playerHP -= dragonMaulDamage;
         hitpointReport(playerHP);
       }
-}
-
-function main(playerHP) {
-  while(playerHP > 0){
-    // Spawns a dragon
-    var dragonTotalHP = getRandomInt(15000, 50000);
-    var dragonHP = dragonTotalHP;
-  console.log("The dragon has " + dragonHP + "HP.");
-  console.log("It roars as you advance to attack it.");
-    while (dragonHP > 0){
-      attackDragon();
-      dragonAttack();
-    }
-  dragonsSlain += 1;
   }
   return playerHP;
 }
@@ -137,4 +137,6 @@ function main(playerHP) {
 var playerHP = 100;
 var dragonsSlain = 0;
 
-main(playerHP);
+while((playerHP = main(playerHP)) > 0) {
+  // What do I put here?
+}

@@ -2,16 +2,6 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function hitpointReport(playerHP) {
-  if (playerHP <= 0) {
-    console.log("You have been slain.");
-    console.log("You slayed " + dragonsSlain + " dragons.");
-  } else {
-    console.log("You have " + playerHP + "HP remaining.");
-    playerHPBar(playerHP);
-  }
-}
-
 function getDragonAttack() {
   var attack = 0;
     //getDragonHit = 50% chance
@@ -62,53 +52,57 @@ function dragonHPBar(dragonHP, dragonTotalHP) {
   console.log("[" + bar + "] (" + hitpointsPercent + "%)");
 }
 
-function playerAttack() {
+function newDragon() {
+  var hp = getRandomInt(15000, 50000)
+  return { 
+    maxHP: hp,
+    currentHP: hp,
+    isDead: false
+  };
 }
 
-function main(playerHP) {
-  
-  // Spawns a dragon
-  var dragonTotalHP = getRandomInt(15000, 50000);
-  var dragonHP = dragonTotalHP;
+function attackDragon(dragonObj, damage) {
+  dragonObj.currentHP -= damage;
+  if (dragonObj.currentHP < 0) {
+    dragonObj.isDead = true;
+  }
+}
 
-  console.log("The dragon has " + dragonHP + "HP.");
-  console.log("It roars as you advance to attack it.");
-  
-  while(playerHP > 0){
+function playerReport(playerObj) {
+  if (playerObj.currentHP <= 0) {
+    console.log("You have been slain.");
+    console.log("You slayed " + playerObj.numSlain + " dragons.");
+  } else {
+    console.log("You have " + playerObj.currentHP + "HP remaining.");
+    playerHPBar(playerObj.currentHP);
+  }
+}
+
+function fightDragon(playerObj, dragonObj) {
+  var winner = 0; //0 : no winner, 1: player won, 2: dragon won
+  while (winner < 1) {
     // Player attacks
     // Player has 65% chance of hitting.
     if(Math.random() < 0.65) {
         // Player damage is a random int from 1 to 2500
         var damage = getRandomInt(1, 2500);
         if (Math.random() < 0.9) {
-          console.log("You swing your sword and hit the dragon for " +
-           damage + "HP.");
+          console.log("You swing your sword and hit the dragon for " + damage + "HP.");
         } else {
           console.log("You kick the dragon and do " + damage + " damage.");
         }
-        dragonHP -= damage;
-        if(dragonHP <= 0) {
-            console.log("You have slain the mighty dragon.");
-            dragonsSlain++;
-            break;
-        } else {
-          console.log("The dragon has " + dragonHP + "HP remaining.");
-          dragonHPBar(dragonHP, dragonTotalHP);
-        }
-    } else {
-        if (Math.random() < 1/3) {
-          console.log("Your attack does no damage to the dragon.");
-        } else if (Math.random() < 0.5) {
-          console.log("Your attack glances off the dragon's scales.")
-        } else {
-          console.log("You miss the dragon.");
-        }
-        console.log("The dragon has " + dragonHP + "HP remaining.");
-        dragonHPBar(dragonHP, dragonTotalHP);
+        attackDragon(dragonObj, damage);
     }
-    
-    // Dragon attacks
-    var dragonAttack = getDragonAttack();
+    if (dragonObj.isDead) {
+      console.log("You have slain the mighty dragon.");
+      winner = 1;
+      playerObj.numSlain++;
+    } else { //Dragon is not dead, so can attack
+      console.log("The dragon has " + dragonHP + "HP remaining.");
+      dragonHPBar(dragonObj.currentHP, dragonObj.maxHP);
+      
+      // Dragon attacks
+      var dragonAttack = getDragonAttack();
       if(dragonAttack < 1) { // Dragon missed.
         if (Math.random() < 0.25) {
           console.log("You raise your shield and block the dragon's attack.");
@@ -117,26 +111,36 @@ function main(playerHP) {
         } else {
           console.log("The dragon misses you.");
         }
-        hitpointReport(playerHP);
       } else if(dragonAttack < 2) { // Dragon breath attack
         var dragonBreathDamage = getDragonBreathDamage();
         console.log("You raise your shield but the dragon breaths fire, " +
           "hitting you for " + dragonBreathDamage + "HP.");
-        playerHP -= dragonBreathDamage;
-        hitpointReport(playerHP);
+        playerObj.currentHP -= dragonBreathDamage;
       } else if(dragonAttack < 3) { // Dragon maul attack
         var dragonMaulDamage = getDragonMaulDamage();
         console.log("The dragon mauls you for " + dragonMaulDamage + "HP.");
-        playerHP -= dragonMaulDamage;
-        hitpointReport(playerHP);
+        playerObj.currentHP -= dragonMaulDamage;
       }
+      if (playerObj.currentHP < 0) {
+        winner = 2;
+      }
+    }
   }
-  return playerHP;
+  //Outside while, someone has won.
+  return winner;
 }
 
-var playerHP = 100;
-var dragonsSlain = 0;
-
-while((playerHP = main(playerHP)) > 0) {
-  // What do I put here?
+function main(playerHP) {
+  var playerObj = {
+    currentHP: playerHP,
+    numSlain: 0
+  };
+  var dragonObj; //Doesn't need to be initialised.
+  do {
+    dragonObj = newDragon();
+    fightDragon(playerObj, dragonObj);
+    playerReport(playerObj);
+  } while (playerObj.currentHP > 0);
 }
+
+main(100);

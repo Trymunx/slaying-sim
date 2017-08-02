@@ -42,7 +42,7 @@ function getGraphicalHPBar(fractionHP, barLength, barColour) {
     }
     bar += '</span><span class="hpBar hpBarR">';// style="background-color:grey;">';
     for (i = 0; i < empty; i++) {
-      bar += " ";
+      bar += "&nbsp";
     }
     bar += "</span> (" + Math.round(fractionHP * 100) + "%)";
     return bar;

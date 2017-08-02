@@ -1,3 +1,7 @@
+function output(text) {
+    console.log(text);
+    document.getElementById('console').innerHTML += text + "\n";
+}
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -35,7 +39,7 @@ function playerHPBar(playerHP) {
   for (i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  console.log("[" + bar + "] (" + hitpointsPercent + "%)");
+  output("[" + bar + "] (" + hitpointsPercent + "%)");
 }
 
 function dragonHPBar(dragonHP, dragonTotalHP) {
@@ -49,7 +53,7 @@ function dragonHPBar(dragonHP, dragonTotalHP) {
   for (i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  console.log("[" + bar + "] (" + hitpointsPercent + "%)");
+  output("[" + bar + "] (" + hitpointsPercent + "%)");
 }
 
 function newDragon() {
@@ -70,10 +74,10 @@ function attackDragon(dragonObj, damage) {
 
 function playerReport(playerObj) {
   if (playerObj.currentHP <= 0) {
-    console.log("You have been slain.");
-    console.log("You slayed " + playerObj.numSlain + " dragons.");
+    output("You have been slain.");
+    output("You slayed " + playerObj.numSlain + " dragons.");
   } else {
-    console.log("You have " + playerObj.currentHP + "HP remaining.");
+    output("You have " + playerObj.currentHP + "HP remaining.");
     playerHPBar(playerObj.currentHP);
   }
 }
@@ -87,38 +91,38 @@ function fightDragon(playerObj, dragonObj) {
         // Player damage is a random int from 1 to 2500
         var damage = getRandomInt(1, 2500);
         if (Math.random() < 0.9) {
-          console.log("You swing your sword and hit the dragon for " + damage + "HP.");
+          output("You swing your sword and hit the dragon for " + damage + "HP.");
         } else {
-          console.log("You kick the dragon and do " + damage + " damage.");
+          output("You kick the dragon and do " + damage + " damage.");
         }
         attackDragon(dragonObj, damage);
     }
     if (dragonObj.isDead) {
-      console.log("You have slain the mighty dragon.");
+      output("You have slain the mighty dragon.");
       winner = 1;
       playerObj.numSlain++;
     } else { //Dragon is not dead, so can attack
-      console.log("The dragon has " + dragonHP + "HP remaining.");
+      output("The dragon has " + dragonHP + "HP remaining.");
       dragonHPBar(dragonObj.currentHP, dragonObj.maxHP);
       
       // Dragon attacks
       var dragonAttack = getDragonAttack();
       if(dragonAttack < 1) { // Dragon missed.
         if (Math.random() < 0.25) {
-          console.log("You raise your shield and block the dragon's attack.");
+          output("You raise your shield and block the dragon's attack.");
         } else if (Math.random < 0.7) {
-          console.log("You sidestep the dragon's attack.");
+          output("You sidestep the dragon's attack.");
         } else {
-          console.log("The dragon misses you.");
+          output("The dragon misses you.");
         }
       } else if(dragonAttack < 2) { // Dragon breath attack
         var dragonBreathDamage = getDragonBreathDamage();
-        console.log("You raise your shield but the dragon breaths fire, " +
+        output("You raise your shield but the dragon breaths fire, " +
           "hitting you for " + dragonBreathDamage + "HP.");
         playerObj.currentHP -= dragonBreathDamage;
       } else if(dragonAttack < 3) { // Dragon maul attack
         var dragonMaulDamage = getDragonMaulDamage();
-        console.log("The dragon mauls you for " + dragonMaulDamage + "HP.");
+        output("The dragon mauls you for " + dragonMaulDamage + "HP.");
         playerObj.currentHP -= dragonMaulDamage;
       }
       if (playerObj.currentHP < 0) {
@@ -143,4 +147,6 @@ function main(playerHP) {
   } while (playerObj.currentHP > 0);
 }
 
-main(100);
+function runGame() {
+  main(100);
+}

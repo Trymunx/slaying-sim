@@ -1,6 +1,6 @@
 function output(text) {
     console.log(text);
-    document.getElementById('console').innerHTML += text + "<br>";
+    document.getElementById('consoleDiv').innerHTML += text + "<br>";
 }
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -102,7 +102,7 @@ function fightDragon(playerObj, dragonObj) {
       winner = 1;
       playerObj.numSlain++;
     } else { //Dragon is not dead, so can attack
-      output("The dragon has " + dragonHP + "HP remaining.");
+      output("The dragon has " + dragonObj.currentHP + "HP remaining.");
       dragonHPBar(dragonObj.currentHP, dragonObj.maxHP);
       
       // Dragon attacks

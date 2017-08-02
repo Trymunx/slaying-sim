@@ -64,33 +64,11 @@ function getAsciiHPBar(fractionHP, barLength, barChar) {
 function playerHPBar(playerObj) {
   var fractionHP = playerObj.currentHP / playerObj.maxHP;
   output(getGraphicalHPBar(fractionHP, 60, "green"), getGraphicalHPBar(fractionHP, 60, "|"));
-  /*var hitpointsPercent = Math.round(playerHP);
-  var barLength = Math.round(0.6 * hitpointsPercent);
-  var emptyLength = 60 - barLength;
-  var bar = "";
-  for (i = 0; i < barLength; i++) {
-    bar += "|"
-  }
-  for (i = 0; i < emptyLength; i++) {
-    bar += " "
-  }
-  output("[" + bar + "] (" + hitpointsPercent + "%)");*/
 }
 
 function dragonHPBar(dragonObj) {
   var fractionHP = dragonObj.currentHP / dragonObj.maxHP;
   output(getGraphicalHPBar(fractionHP, 60, "red"), getGraphicalHPBar(fractionHP, 60, "#"));
-  /*var hitpointsPercent = Math.round((dragonHP / dragonTotalHP) * 100);
-  var barLength = Math.round(0.6 * hitpointsPercent);
-  var emptyLength = 60 - barLength;
-  var bar = "";
-  for (i = 0; i < barLength; i++) {
-    bar += "#"
-  }
-  for (i = 0; i < emptyLength; i++) {
-    bar += " "
-  }
-  output("[" + bar + "] (" + hitpointsPercent + "%)");*/
 }
 
 function newDragon() {
@@ -182,7 +160,6 @@ function main(playerHP) {
   do {
     dragonObj = newDragon();
     fightDragon(playerObj, dragonObj);
-    //playerReport(playerObj);
   } while (playerObj.currentHP > 0);
 }
 

@@ -5,7 +5,9 @@ function output(content, consoleContent) {
       console.log(content);
     }
     var consoleDiv = document.getElementById('consoleDiv');
-    consoleDiv.innerHTML = content + "<br>" + consoleDiv.innerHTML;
+    if (consoleDiv) { //Don't crash if there is no graphical console.
+        consoleDiv.innerHTML = content + "<br>" + consoleDiv.innerHTML;
+    }
 }
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

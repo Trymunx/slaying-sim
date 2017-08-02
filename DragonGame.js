@@ -65,12 +65,12 @@ function getAsciiHPBar(fractionHP, barLength, barChar) {
 
 function playerHPBar(playerObj) {
   var fractionHP = playerObj.currentHP / playerObj.maxHP;
-  output(getGraphicalHPBar(fractionHP, 60, "green"), getGraphicalHPBar(fractionHP, 60, "|"));
+  output(getGraphicalHPBar(fractionHP, 60, "green"), getAsciiHPBar(fractionHP, 60, "|"));
 }
 
 function dragonHPBar(dragonObj) {
   var fractionHP = dragonObj.currentHP / dragonObj.maxHP;
-  output(getGraphicalHPBar(fractionHP, 60, "red"), getGraphicalHPBar(fractionHP, 60, "#"));
+  output(getGraphicalHPBar(fractionHP, 60, "red"), getAsciiHPBar(fractionHP, 60, "#"));
 }
 
 function newDragon() {

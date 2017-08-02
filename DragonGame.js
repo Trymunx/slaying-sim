@@ -1,6 +1,6 @@
 function output(text) {
     console.log(text);
-    document.getElementById('console').innerHTML += text + "\n";
+    document.getElementById('console').innerHTML += text + "<br>";
 }
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

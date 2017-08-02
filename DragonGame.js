@@ -129,6 +129,7 @@ function fightDragon(playerObj, dragonObj) {
         winner = 2;
       }
     }
+    playerReport(playerObj);
   }
   //Outside while, someone has won.
   return winner;
@@ -143,7 +144,7 @@ function main(playerHP) {
   do {
     dragonObj = newDragon();
     fightDragon(playerObj, dragonObj);
-    playerReport(playerObj);
+    //playerReport(playerObj);
   } while (playerObj.currentHP > 0);
 }
 

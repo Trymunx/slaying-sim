@@ -53,7 +53,7 @@ function getAsciiHPBar(fractionHP, barLength, barChar) {
     var empty = barLength - filled;
     var bar = "";
     for (i = 0; i < filled; i++) {
-      bar += "|";
+      bar += barChar;
     }
     for (i = 0; i < empty; i++) {
       bar += " ";

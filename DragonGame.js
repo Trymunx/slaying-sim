@@ -1,6 +1,11 @@
-function output(text) {
-    console.log(text);
-    document.getElementById('consoleDiv').innerHTML += text + "<br>";
+function output(content, consoleContent) {
+    if (consoleContent) { //Allow for different output to console and page.
+        console.log(consoleContent);
+    } else {
+      console.log(content);
+    }
+    var consoleDiv = document.getElementById('consoleDiv');
+    consoleDiv.innerHTML = content + "<br>" + consoleDiv.innerHTML;
 }
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -28,8 +33,38 @@ function getDragonMaulDamage() {
   return getRandomInt(1, 5);
 }
 
-function playerHPBar(playerHP) {
-  var hitpointsPercent = Math.round(playerHP);
+function getGraphicalHPBar(fractionHP, barLength, barColour) {
+    var filled = Math.round(fractionHP * barLength);
+    var empty = barLength - filled;
+    var bar = '<span class="hpBar hpBarL" style="background-color:' + barColour + ';">';
+    for (i = 0; i < filled; i++) {
+      bar += "&nbsp";
+    }
+    bar += '</span><span class="hpBar hpBarR">';// style="background-color:grey;">';
+    for (i = 0; i < empty; i++) {
+      bar += "&nbsp";
+    }
+    bar += "</span> (" + Math.round(fractionHP * 100) + "%)";
+    return bar;
+}
+
+function getAsciiHPBar(fractionHP, barLength, barChar) {
+    var filled = Math.round(fractionHP * barLength);
+    var empty = barLength - filled;
+    var bar = "";
+    for (i = 0; i < filled; i++) {
+      bar += "|";
+    }
+    for (i = 0; i < empty; i++) {
+      bar += " ";
+    }
+    return "[" + bar + "] (" + Math.round(fractionHP * 100) + "%)";
+}
+
+function playerHPBar(playerObj) {
+  var fractionHP = playerObj.currentHP / playerObj.maxHP;
+  output(getGraphicalHPBar(fractionHP, 60, "green"), getGraphicalHPBar(fractionHP, 60, "|"));
+  /*var hitpointsPercent = Math.round(playerHP);
   var barLength = Math.round(0.6 * hitpointsPercent);
   var emptyLength = 60 - barLength;
   var bar = "";
@@ -39,11 +74,13 @@ function playerHPBar(playerHP) {
   for (i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  output("[" + bar + "] (" + hitpointsPercent + "%)");
+  output("[" + bar + "] (" + hitpointsPercent + "%)");*/
 }
 
-function dragonHPBar(dragonHP, dragonTotalHP) {
-  var hitpointsPercent = Math.round((dragonHP / dragonTotalHP) * 100);
+function dragonHPBar(dragonObj) {
+  var fractionHP = dragonObj.currentHP / dragonObj.maxHP;
+  output(getGraphicalHPBar(fractionHP, 60, "red"), getGraphicalHPBar(fractionHP, 60, "#"));
+  /*var hitpointsPercent = Math.round((dragonHP / dragonTotalHP) * 100);
   var barLength = Math.round(0.6 * hitpointsPercent);
   var emptyLength = 60 - barLength;
   var bar = "";
@@ -53,7 +90,7 @@ function dragonHPBar(dragonHP, dragonTotalHP) {
   for (i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  output("[" + bar + "] (" + hitpointsPercent + "%)");
+  output("[" + bar + "] (" + hitpointsPercent + "%)");*/
 }
 
 function newDragon() {
@@ -78,7 +115,7 @@ function playerReport(playerObj) {
     output("You slayed " + playerObj.numSlain + " dragons.");
   } else {
     output("You have " + playerObj.currentHP + "HP remaining.");
-    playerHPBar(playerObj.currentHP);
+    playerHPBar(playerObj);
   }
 }
 
@@ -103,7 +140,7 @@ function fightDragon(playerObj, dragonObj) {
       playerObj.numSlain++;
     } else { //Dragon is not dead, so can attack
       output("The dragon has " + dragonObj.currentHP + "HP remaining.");
-      dragonHPBar(dragonObj.currentHP, dragonObj.maxHP);
+      dragonHPBar(dragonObj);
       
       // Dragon attacks
       var dragonAttack = getDragonAttack();
@@ -137,6 +174,7 @@ function fightDragon(playerObj, dragonObj) {
 
 function main(playerHP) {
   var playerObj = {
+    maxHP: playerHP,
     currentHP: playerHP,
     numSlain: 0
   };

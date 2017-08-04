@@ -71,7 +71,7 @@ function main(playerHP) {
   var dragonTotalHP = getRandomInt(15000, 50000);
   var dragonHP = dragonTotalHP;
 
-  console.log("The dragon has " + dragonHP + "HP.");
+  console.log("The dragon approaches, it has " + dragonHP + "HP.");
   console.log("It roars as you advance to attack it.");
   
   while(playerHP > 0){
@@ -88,7 +88,8 @@ function main(playerHP) {
         }
         dragonHP -= damage;
         if(dragonHP <= 0) {
-            console.log("You have slain the mighty dragon.");
+            console.log("The dragon lies slain at your feet. Before you " +
+              "can rest, you see the glinting wings of another.");
             dragonsSlain++;
             break;
         } else {
@@ -110,9 +111,9 @@ function main(playerHP) {
     // Dragon attacks
     var dragonAttack = getDragonAttack();
       if(dragonAttack < 1) { // Dragon missed.
-        if (Math.random() < 0.25) {
+        if (Math.random() < 0.35) {
           console.log("You raise your shield and block the dragon's attack.");
-        } else if (Math.random < 0.7) {
+        } else if (Math.random() < 0.25) {
           console.log("You sidestep the dragon's attack.");
         } else {
           console.log("The dragon misses you.");

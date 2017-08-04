@@ -66,14 +66,14 @@ function playerAttack() {
 }
 
 function main(playerHP) {
-  
+
   // Spawns a dragon
   var dragonTotalHP = getRandomInt(15000, 50000);
   var dragonHP = dragonTotalHP;
 
   console.log("The dragon approaches, it has " + dragonHP + "HP.");
   console.log("It roars as you advance to attack it.");
-  
+
   while(playerHP > 0){
     // Player attacks
     // Player has 65% chance of hitting.
@@ -81,15 +81,13 @@ function main(playerHP) {
         // Player damage is a random int from 1 to 2500
         var damage = getRandomInt(1, 2500);
         if (Math.random() < 0.9) {
-          console.log("You swing your sword and hit the dragon for " +
-           damage + "HP.");
+          console.log("You swing your sword and hit the dragon for " + damage + "HP.");
         } else {
           console.log("You kick the dragon and do " + damage + " damage.");
         }
         dragonHP -= damage;
         if(dragonHP <= 0) {
-            console.log("The dragon lies slain at your feet. Before you " +
-              "can rest, you see the glinting wings of another.");
+            console.log("The dragon lies slain at your feet. Before you can rest, you see the glinting wings of another.");
             dragonsSlain++;
             break;
         } else {
@@ -107,7 +105,7 @@ function main(playerHP) {
         console.log("The dragon has " + dragonHP + "HP remaining.");
         dragonHPBar(dragonHP, dragonTotalHP);
     }
-    
+
     // Dragon attacks
     var dragonAttack = getDragonAttack();
       if(dragonAttack < 1) { // Dragon missed.
@@ -121,8 +119,7 @@ function main(playerHP) {
         hitpointReport(playerHP);
       } else if(dragonAttack < 2) { // Dragon breath attack
         var dragonBreathDamage = getDragonBreathDamage();
-        console.log("You raise your shield but the dragon breaths fire, " +
-          "hitting you for " + dragonBreathDamage + "HP.");
+        console.log("You raise your shield but the dragon breaths fire, hitting you for " + dragonBreathDamage + "HP.");
         playerHP -= dragonBreathDamage;
         hitpointReport(playerHP);
       } else if(dragonAttack < 3) { // Dragon maul attack

@@ -14,11 +14,11 @@ var dragon = {
 
 var player = {
   totalHP: 100,
-  currentHP: totalHP,
+  currentHP: this.totalHP,
   experience: 0,
-  attackChance: Math.round(Math.random()),
+  attackChance: 0,
   dragonsSlain: 0,
-  damgage: getRandomInt(1, 4500),
+  damgage: 0,
   potions: 5
 }
 
@@ -27,7 +27,7 @@ function spawnDragon() {
   this.currentHP = this.totalHP;
 }
 
-function getDragonAttackType {
+function getDragonAttackType() {
   var attack = Math.random();
   if (attack < 0.5) {
     dragon.attackType = 0;
@@ -61,3 +61,20 @@ function drinkPotion() {
   }
   console.log("You have " + player.currentHP + "HP remaining.");
 }
+
+function main() {
+  dragon.spawnDragon();
+  console.log("A dragon approaches with " + dragon.totalHP + "HP.");
+  while(dragon.currentHP > 0) {
+    player.attackChance = Math.random();
+    if (player.attackChance > 0.4) {
+      player.damage = getRandomInt(1, 4500);
+      dragon.currentHP -= player.damage;
+      console.log("You attack the dragon for " + player.damage + "HP. It has " + dragon.currentHP + "HP remaining.");
+    } else {
+      console.log("You miss the dragon. It has " + dragon.currentHP + "HP remaining.");
+    }
+  }
+}
+
+main();

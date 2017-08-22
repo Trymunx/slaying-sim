@@ -7,7 +7,7 @@ var player = {
   currentHP: 100,
   experience: 0,
   attackChance: 0,
-  damgage: 0,
+  damage: 0,
   potions: 3,
   gold: 0,
   hasSlainCreature: false,
@@ -326,6 +326,8 @@ function spawn(creature) {
 }
 
 function chooseCreatureToSpawn() {
+
+  // Returns creature name as a string
   // var spawnRoll = [];
   // // Rough random picker based on each creatures spawn chance
   // for (var i = 0; i < creatures.length; i++) {
@@ -336,8 +338,9 @@ function chooseCreatureToSpawn() {
   // // Return the name of the creature with the highest spawnRoll (random number * spawn chance)
   // return creatures[index];
 
-  var spawnRoll = Math.round(Math.random() * 7);
-  return creatures[spawnRoll].name;
+  // This returns creature object
+  var spawnRoll = getRandomInt(0, 6);
+  return creatures[spawnRoll];
 }
 
 // function getDragonAttack() {
@@ -376,6 +379,7 @@ function getCreatureAttack(creature) {
     } else {
       console.log("The " + creature.name + "'s attack misses you.");
     }
+    damage = 0;
   } else if (attackChance <= creature.attacks[0].chance) { // Creature's first attack hits
     creature.attacks[0].damage = getRandomInt(creature.attacks[0].minDamage, creature.attacks[0].maxDamage);
     console.log(creature.attacks[0].message + creature.attacks[0].damage + "HP.");
@@ -388,16 +392,16 @@ function getCreatureAttack(creature) {
   return damage;
 }
 
-function getPlayerAttack() {
+function getPlayerAttack(creature) {
   player.attackChance = Math.random();
   if (player.attackChance > 0.4) {
-    player.damage = getRandomInt(1, 4500);
-    dragon.currentHP -= player.damage;
-    console.log("You attack the dragon for " + player.damage + "HP.");
+    player.damage = getRandomInt(1, 30);
+    creature.currentHP -= player.damage;
+    console.log("You attack the " + creature.name + " for " + player.damage + "HP.");
   } else {
-    console.log("You miss the dragon. It has " + dragon.currentHP + "HP remaining.");
+    console.log("You miss the " + creature.name + ". It has " + creature.currentHP + "HP remaining.");
   }
-  dragonHPReport(dragon.currentHP);
+  creatureHPReport(creature, creature.currentHP, creature.totalHP);
 }
 
 function dragonHPReport(dragonHP) {
@@ -411,14 +415,14 @@ function dragonHPReport(dragonHP) {
   }
 }
 
-function creatureHPReport(creature, creatureHP, creatureTotalHP) {
-  if (creatureHP > 0) {
-    console.log("It has " + creatureHP + "HP remaining.");
-    creatureHPBar(creature, creatureHP, creatureTotalHP);
+function creatureHPReport(creature) {
+  if (creature.currentHP > 0) {
+    console.log("It has " + creature.currentHP + "HP remaining.");
+    creatureHPBar(creature);
   } else {
-    console.log("You have slain the " + creature + ". You have " + player.currentHP + "HP remaining.");
+    console.log("You have slain the " + creature.name + ". You have " + player.currentHP + "HP remaining.");
     player.hasSlainCreature = true;
-    creatureSlain(creature);
+    creatureSlain(creature.name);
   }
 }
 
@@ -464,19 +468,19 @@ function creatureDrop(creature) {
   }
 }
 
-function creatureHPBar(creature, currentHP, totalHP) {
+function creatureHPBar(creature) {
   var totalBarLength;
-  var hitpointsPercent = Math.round((currentHP / totalHP) * 100);
+  var hitpointsPercent = Math.round((creature.currentHP / creature.totalHP) * 100);
   var barLength;
   var emptyLength;
   var bar = "";
 
-  if (totalHP <= 1000) { // Weaker creatures need HP bars that aren't 0 length
-    totalBarLength = Math.ceiling(totalHP / 10);
+  if (creature.totalHP <= 1000) { // Weaker creatures need HP bars that aren't 0 length
+    totalBarLength = Math.ceil(creature.totalHP / 10);
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
   } else { // Is a dragon or a troll
-    totalBarLength = 2*(Math.round(totalHP / 1000));
+    totalBarLength = 2*(Math.round(creature.totalHP / 1000));
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
   }
@@ -537,7 +541,7 @@ function endGameReport() {
           creaturesSlainOutput += player.creaturesSlain[i].namePlural;
         }
       }
-      console.log("You slayed " + creaturesSlainOutput + "and earned " + player.gold + " gold.");
+      console.log("You slayed " + creaturesSlainOutput + " and earned " + player.gold + " gold.");
     } else {
       console.log("You failed to slay a single creature.");
     }
@@ -584,11 +588,9 @@ function heal() {
 
 function main() {
   while (player.currentHP > 0) {
-    var currentCreature = chooseCreatureToSpawn()
+    var currentCreature = chooseCreatureToSpawn();
     spawn(currentCreature);
-    console.log("A " + currentCreature.name + " approaches with " + currentCreature.totalHP + "HP.");
-    console.log(currentCreature.spawnMessage);
-    creatureHPBar(currentCreature, currentCreature.currentHP, currentCreature.totalHP);
+    creatureHPBar(currentCreature);
     console.log("");
     while(currentCreature.currentHP > 0 && player.currentHP > 0) {
       if (player.currentHP < 15) {
@@ -598,15 +600,15 @@ function main() {
           if (Math.random() < 0.5) {
             heal();
           } else {
-            getPlayerAttack();
+            getPlayerAttack(currentCreature);
           }
         }
       } else {
-        getPlayerAttack();
+        getPlayerAttack(currentCreature);
       }
       console.log("");
       if (currentCreature.currentHP > 0) {
-        player.currentHP -= getCreatureAttack(dragon);
+        player.currentHP -= getCreatureAttack(currentCreature);
         playerHPReport(player.currentHP);
       }
       console.log("");

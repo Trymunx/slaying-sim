@@ -399,7 +399,7 @@ function getPlayerAttack(creature) {
     creature.currentHP -= player.damage;
     console.log("You attack the " + creature.name + " for " + player.damage + "HP.");
   } else {
-    console.log("You miss the " + creature.name + ". It has " + creature.currentHP + "HP remaining.");
+    console.log("You miss the " + creature.name + ".");
   }
   creatureHPReport(creature, creature.currentHP, creature.totalHP);
 }

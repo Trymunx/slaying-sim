@@ -13,7 +13,7 @@ var player = {
   hasSlainCreature: false,
   hasSlainDragon: false,
   dragonsSlain: 0,
-  creatureSlain: [
+  creaturesSlain: [
     {
       name: "rat",
       namePlural: "rats",
@@ -77,7 +77,7 @@ var dragon = {
   goldDropMultiplier: 1500,
   potionDropChance: 0.95,
   potionDropMultiplier: 5,
-  spawnChance: 0.1,
+  spawnChance: 0.25,
   spawnMessage: "It roars and spreads its wings as you attack.",
   deathMessage: "With a deafening roar, the dragon lets out a final burst of flaming breath and falls, shaking the ground."
 };
@@ -112,7 +112,7 @@ var rat = {
   goldDropMultiplier: 1,
   potionDropChance: 0.05,
   potionDropMultiplier: 1,
-  spawnChance: 0.8,
+  spawnChance: 1,
   spawnMessage: "It squeaks and bares its teeth as you attack.",
   deathMessage: "With a squeal the rat dies."
 };
@@ -144,10 +144,10 @@ var wolf = {
     }
   ],
   goldDropChance: 0.35,
-  goldDropMultiplier: 50,
+  goldDropMultiplier: 32,
   potionDropChance: 0.3,
   potionDropMultiplier: 2,
-  spawnChance: 0.6,
+  spawnChance: 0.85,
   spawnMessage: "It growls as you attack, its hackles raised.",
   deathMessage: "The wolf dies with a whine."
 };
@@ -179,10 +179,10 @@ var troll = {
     }
   ],
   goldDropChance: 0.75,
-  goldDropMultiplier: 500,
+  goldDropMultiplier: 375,
   potionDropChance: 0.65,
   potionDropMultiplier: 3,
-  spawnChance: 0.25,
+  spawnChance: 0.45,
   spawnMessage: "It roars incoherently as you attack, beating its chest.",
   deathMessage: "The troll bellows and keels over, dead."
 };
@@ -217,7 +217,7 @@ var snake = {
   goldDropMultiplier: 18,
   potionDropChance: 0.35,
   potionDropMultiplier: 1,
-  spawnChance: 0.6,
+  spawnChance: 0.9,
   spawnMessage: "It hisses and bares its fangs as you attack.",
   deathMessage: "The snake tries to slither away before curling up, dead."
 };
@@ -249,10 +249,10 @@ var ghost = {
     }
   ],
   goldDropChance: 0.5,
-  goldDropMultiplier: 200,
+  goldDropMultiplier: 95,
   potionDropChance: 0.3,
   potionDropMultiplier: 1,
-  spawnChance: 0.45,
+  spawnChance: 0.65,
   spawnMessage: "You see its face contort in anger as you attack, swirling in and out of view.",
   deathMessage: "The ghost's form dissipates into the surroundings, released from the physical world."
 };
@@ -280,7 +280,7 @@ var thief = {
       minDamage: 2,
       maxDamage: 7,
       damage: 0,
-      message: "The thief kicks out at you, hitting you for "
+      message: "The thief kicks you, hitting you for "
     },
     {
       name: "headbutt",
@@ -300,10 +300,10 @@ var thief = {
     }
   ],
   goldDropChance: 0.8,
-  goldDropMultiplier: 950,
+  goldDropMultiplier: 250,
   potionDropChance: 0.35,
   potionDropMultiplier: 2,
-  spawnChance: 0.55,
+  spawnChance: 0.8,
   spawnMessage: "It makes a grab for your gold but you are too quick. It attacks you in anger.",
   deathMessage: "You strike the final blow, killing the thief. All of his possessions are yours now!"
 };
@@ -326,46 +326,27 @@ function spawn(creature) {
 }
 
 function chooseCreatureToSpawn() {
-
-  // Returns creature name as a string
-  // var spawnRoll = [];
-  // // Rough random picker based on each creatures spawn chance
-  // for (var i = 0; i < creatures.length; i++) {
-  //   // Multiplies their spawn chances by a random number
-  //   spawnRoll[i] = Math.random() * creatures[i].spawnChance;
-  // }
-  // var index = spawnRoll.indexOf(Math.max(spawnRoll));
-  // // Return the name of the creature with the highest spawnRoll (random number * spawn chance)
-  // return creatures[index];
-
-  // This returns creature object
-  var spawnRoll = getRandomInt(0, 6);
-  return creatures[spawnRoll];
+  var spawnRoll = [];
+  // Rough random picker based on each creatures spawn chance
+  for (var i = 0; i < creatures.length; i++) {
+    // Multiplies their spawn chances by a random number
+    spawnRoll[i] = Math.round(Math.random() * creatures[i].spawnChance * 1000);
+  }
+  // creatureIndex is the position in the creatures array
+  var creatureIndex = 0;
+  // indexValue is the value of that position in the spawnRoll array
+  var indexValue = spawnRoll[0];
+  for (var i = 0; i < spawnRoll.length; i++) {
+    if (spawnRoll[i] > indexValue) {
+      // If the value of the next spawnRoll index is greater, change the creatureIndex to that creature
+      creatureIndex = i;
+      console.log("spawnRoll = " + spawnRoll[i] + ", creatureIndex = " + creatureIndex);
+    }
+    indexValue = Math.max(creatureIndex, spawnRoll[i]);
+  }
+  console.log("spawnRoll = " + spawnRoll);
+  return creatures[creatureIndex];
 }
-
-// function getDragonAttack() {
-//   var attack = Math.random();
-//   var damage = 0;
-//   if (attack < 0.6) {
-//     var message = Math.random();
-//     if(message < 0.35){
-//       console.log("You raise your shield and block the dragon's attack.");
-//     } else if (message < 0.60) {
-//       console.log("You sidestep the dragon's attack.");
-//     } else {
-//       console.log("The dragon's attack misses you.");
-//     }
-//   } else if (attack < 0.92) {
-//     dragon.maulAttack = getRandomInt(1,12);
-//     console.log("The dragon mauls you for " + dragon.maulAttack + " damage.");
-//     damage = dragon.maulAttack;
-//   } else {
-//     dragon.breathAttack = getRandomInt(8,35);
-//     console.log("You raise your shield but the dragon breaths fire, hitting you for " + dragon.breathAttack + "HP.");
-//     damage = dragon.breathAttack;
-//   }
-//   return damage;
-// }
 
 function getCreatureAttack(creature) {
   var attackChance = Math.random();
@@ -404,17 +385,6 @@ function getPlayerAttack(creature) {
   creatureHPReport(creature, creature.currentHP, creature.totalHP);
 }
 
-function dragonHPReport(dragonHP) {
-  if (dragonHP > 0) {
-    console.log("It has " + dragonHP + "HP remaining.");
-    creatureHPBar(dragon, dragon.currentHP, dragon.totalHP);
-  } else {
-    console.log("You have slain the dragon. You have " + player.currentHP + "HP remaining.");
-    player.dragonsSlain += 1;
-    player.hasSlainDragon = true;
-  }
-}
-
 function creatureHPReport(creature) {
   if (creature.currentHP > 0) {
     console.log("It has " + creature.currentHP + "HP remaining.");
@@ -422,7 +392,7 @@ function creatureHPReport(creature) {
   } else {
     console.log("You have slain the " + creature.name + ". You have " + player.currentHP + "HP remaining.");
     player.hasSlainCreature = true;
-    creatureSlain(creature.name);
+    creatureSlain(creature);
   }
 }
 
@@ -430,13 +400,15 @@ function creatureSlain(creature) {
   if (creature === "dragon") {
     player.dragonsSlain++;
   } else {
-    for (var i in creatures) {
-      for (var j in player.creaturesSlain) {
-        if (player.creaturesSlain[j].name === creatures[i]) {
-          player.creaturesSlain[j].numberSlain++;
-          break;
-        }
+    for (var i = 0; i < creatures.length; i++) {
+      if (creatures[i] === creature) {
+        player.creaturesSlain[i-1].numberSlain++;
       }
+      // for (var j in player.creaturesSlain) {
+      //   if (player.creaturesSlain[j].name === creatures[i]) {
+      //     player.creaturesSlain[j].numberSlain++;
+      //     break;
+      //   }
     }
   }
   creatureDrop(creature);
@@ -444,8 +416,18 @@ function creatureSlain(creature) {
 
 function creatureDrop(creature) {
   var goldDrop;
+  var goldDropMiddleValue;
+  var goldDropLowerBound;
+  var goldDropUpperBound;
   if (Math.random() <= creature.goldDropChance) {
-    goldDrop = Math.round(creature.goldDropMultiplier * (Math.random() + 0.1) * 10);
+    // Multiple of creatures' gold drop multiplier from 1x to 11x the multiplier
+    goldDropMiddleValue = Math.round(creature.goldDropMultiplier * (Math.random() + 0.1) * 10);
+    // Lower bound is middle value - 10%
+    goldDropLowerBound = goldDropMiddleValue - (goldDropMiddleValue * 0.1);
+    // Upper bound is middle value + 10%
+    goldDropUpperBound = goldDropMiddleValue + (goldDropMiddleValue * 0.1);
+    // Gold drop is a random value between the bounds (rounded in case 10% is not an integer)
+    goldDrop = Math.round(getRandomInt(goldDropLowerBound, goldDropUpperBound));
     player.gold += goldDrop;
   } else {
     goldDrop = false;
@@ -532,16 +514,16 @@ function endGameReport() {
     }
     // Check for other creatures slain
     if (player.hasSlainCreature === true) {
-      var creaturesSlainOutput = "";
-      for (var i in player.creaturesSlain) {
-        creaturesSlainOutput += player.creaturesSlain[i].numberSlain + " ";
+      var creaturesSlainOutput = [];
+      for (var i = 0; i < player.creaturesSlain.length; i++) {
+        creaturesSlainOutput += " " + player.creaturesSlain[i].numberSlain + " ";
         if (player.creaturesSlain[i].numberSlain === 1) {
           creaturesSlainOutput += player.creaturesSlain[i].name;
         } else {
           creaturesSlainOutput += player.creaturesSlain[i].namePlural;
         }
       }
-      console.log("You slayed " + creaturesSlainOutput + " and earned " + player.gold + " gold.");
+      console.log("You slayed" + creaturesSlainOutput + " and earned " + player.gold + " gold.");
     } else {
       console.log("You failed to slay a single creature.");
     }

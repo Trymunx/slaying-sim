@@ -335,14 +335,14 @@ function chooseCreatureToSpawn() {
   // creatureIndex is the position in the creatures array
   var creatureIndex = 0;
   // indexValue is the value of that position in the spawnRoll array
-  var indexValue = spawnRoll[0];
+  var indexValue = spawnRoll[creatureIndex];
   for (var i = 0; i < spawnRoll.length; i++) {
     if (spawnRoll[i] > indexValue) {
       // If the value of the next spawnRoll index is greater, change the creatureIndex to that creature
       creatureIndex = i;
       console.log("spawnRoll = " + spawnRoll[i] + ", creatureIndex = " + creatureIndex);
     }
-    indexValue = Math.max(creatureIndex, spawnRoll[i]);
+    indexValue = Math.max(indexValue, spawnRoll[i]);
   }
   console.log("spawnRoll = " + spawnRoll);
   return creatures[creatureIndex];

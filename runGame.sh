@@ -1,7 +1,5 @@
 #!/bin/bash
 
-clear
-echo "Starting game"
 mkdir -p output
 X=$( ls -l output/ | grep -v ^d | wc -l )
 Y=$(( X - 1 ))

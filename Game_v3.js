@@ -340,11 +340,9 @@ function chooseCreatureToSpawn() {
     if (spawnRoll[i] > indexValue) {
       // If the value of the next spawnRoll index is greater, change the creatureIndex to that creature
       creatureIndex = i;
-      console.log("spawnRoll = " + spawnRoll[i] + ", creatureIndex = " + creatureIndex);
     }
     indexValue = Math.max(indexValue, spawnRoll[i]);
   }
-  console.log("spawnRoll = " + spawnRoll);
   return creatures[creatureIndex];
 }
 

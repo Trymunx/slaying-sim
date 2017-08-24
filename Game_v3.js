@@ -456,11 +456,11 @@ function creatureHPBar(creature) {
   var bar = "";
 
   if (creature.totalHP <= 1000) { // Weaker creatures need HP bars that aren't 0 length
-    totalBarLength = Math.ceil(Math.sqrt(creature.totalHP) * 3.5);
+    totalBarLength = Math.round(Math.sqrt(creature.totalHP) * 3.5);
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
-  } else { // Is a dragon or a troll
-    totalBarLength = 2*(Math.round(creature.totalHP / 1000));
+  } else { // Is a dragon or a troll so use cube root instead of square root
+    totalBarLength = Math.round(Math.cbrt(creature.totalHP) 3.5));
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
   }

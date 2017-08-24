@@ -105,7 +105,7 @@ var rat = {
       minDamage: 3,
       maxDamage: 6,
       damage: 0,
-      message: "The rat scratches you, dealing "
+      message: "The rat scratches you, you lose "
     }
   ],
   goldDropChance: 0.1,

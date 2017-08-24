@@ -144,7 +144,7 @@ var wolf = {
     }
   ],
   goldDropChance: 0.35,
-  goldDropMultiplier: 32,
+  goldDropMultiplier: 24,
   potionDropChance: 0.3,
   potionDropMultiplier: 2,
   spawnChance: 0.85,
@@ -214,7 +214,7 @@ var snake = {
     }
   ],
   goldDropChance: 0.2,
-  goldDropMultiplier: 18,
+  goldDropMultiplier: 9,
   potionDropChance: 0.35,
   potionDropMultiplier: 1,
   spawnChance: 0.9,
@@ -249,7 +249,7 @@ var ghost = {
     }
   ],
   goldDropChance: 0.5,
-  goldDropMultiplier: 95,
+  goldDropMultiplier: 45,
   potionDropChance: 0.3,
   potionDropMultiplier: 1,
   spawnChance: 0.65,
@@ -300,7 +300,7 @@ var thief = {
     }
   ],
   goldDropChance: 0.8,
-  goldDropMultiplier: 250,
+  goldDropMultiplier: 90,
   potionDropChance: 0.35,
   potionDropMultiplier: 2,
   spawnChance: 0.8,

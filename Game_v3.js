@@ -460,7 +460,7 @@ function creatureHPBar(creature) {
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
   } else { // Is a dragon or a troll so use cube root instead of square root
-    totalBarLength = Math.round(Math.cbrt(creature.totalHP) * 3.5);
+    totalBarLength = Math.round(Math.cbrt(creature.totalHP) * 3.25);
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
   }

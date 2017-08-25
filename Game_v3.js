@@ -328,7 +328,7 @@ function spawn(creature) {
 function chooseCreatureToSpawn() {
   var spawnRoll = [];
   // Rough random picker based on each creatures spawn chance
-  for (var i = 0; i < creatures.length; i++) {
+  for (let i = 0; i < creatures.length; i++) {
     // Multiplies their spawn chances by a random number
     spawnRoll[i] = Math.round(Math.random() * creatures[i].spawnChance * 1000);
   }
@@ -336,7 +336,7 @@ function chooseCreatureToSpawn() {
   var creatureIndex = 0;
   // indexValue is the value of that position in the spawnRoll array
   var indexValue = spawnRoll[creatureIndex];
-  for (var i = 0; i < spawnRoll.length; i++) {
+  for (let i = 0; i < spawnRoll.length; i++) {
     if (spawnRoll[i] > indexValue) {
       // If the value of the next spawnRoll index is greater, change the creatureIndex to that creature
       creatureIndex = i;
@@ -398,7 +398,7 @@ function creatureSlain(creature) {
   if (creature === "dragon") {
     player.dragonsSlain++;
   } else {
-    for (var i = 0; i < creatures.length; i++) {
+    for (let i = 0; i < creatures.length; i++) {
       if (creatures[i] === creature) {
         player.creaturesSlain[i-1].numberSlain++;
       }
@@ -465,11 +465,11 @@ function creatureHPBar(creature) {
     emptyLength = totalBarLength - barLength;
   }
 
-  for (i = 0; i < barLength; i++) {
+  for (let i = 0; i < barLength; i++) {
     bar += creature.barCharacter;
   }
 
-  for (i = 0; i < emptyLength; i++) {
+  for (let i = 0; i < emptyLength; i++) {
     bar += " "
   }
 
@@ -489,10 +489,10 @@ function playerHPBar(playerHP) {
   var barLength = Math.round(0.6 * playerHP);
   var emptyLength = 60 - barLength;
   var bar = "";
-  for (i = 0; i < barLength; i++) {
+  for (let i = 0; i < barLength; i++) {
     bar += "|"
   }
-  for (i = 0; i < emptyLength; i++) {
+  for (let i = 0; i < emptyLength; i++) {
     bar += " "
   }
   console.log("[" + bar + "] (" + playerHP + "%)");
@@ -513,7 +513,7 @@ function endGameReport() {
     // Check for other creatures slain
     if (player.hasSlainCreature === true) {
       var creaturesSlainOutput = [];
-      for (var i = 0; i < player.creaturesSlain.length; i++) {
+      for (let i = 0; i < player.creaturesSlain.length; i++) {
         creaturesSlainOutput += " " + player.creaturesSlain[i].numberSlain + " ";
         if (player.creaturesSlain[i].numberSlain === 1) {
           creaturesSlainOutput += player.creaturesSlain[i].name;

@@ -1,0 +1,46 @@
+{
+  "player": {
+    "totalHP": 100,
+    "currentHP": 100,
+    "experience": 0,
+    "attackChance": 0,
+    "damage": 0,
+    "potions": 3,
+    "gold": 0,
+    "hasSlainCreature": false,
+    "hasSlainDragon": false,
+    "dragonsSlain": 0,
+    "creaturesSlain": [
+      {
+        "name": "rat",
+        "namePlural": "rats",
+        "numberSlain": 0
+      },
+      {
+        "name": "wolf",
+        "namePlural": "wolves",
+        "numberSlain": 0,
+      },
+      {
+        "name": "troll",
+        "namePlural": "trolls",
+        "numberSlain": 0,
+      },
+      {
+        "name": "snake",
+        "namePlural": "snakes",
+        "numberSlain": 0,
+      },
+      {
+        "name": "ghost",
+        "namePlural": "ghosts",
+        "numberSlain": 0,
+      },
+      {
+        "name": "thief",
+        "namePlural": "thieves",
+        "numberSlain": 0,
+      }
+    ],
+  }
+}

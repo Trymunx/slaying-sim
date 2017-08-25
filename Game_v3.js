@@ -1,3 +1,4 @@
+"use strict"
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -53,7 +54,7 @@ var dragon = {
   minTotalHP: 15000,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "#",
+  healthBar: "#",
   missChance: 0.2,
   attacks: [
     {
@@ -88,7 +89,7 @@ var rat = {
   minTotalHP: 5,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "o",
+  healthBar: "o",
   missChance: 0.5,
   attacks: [
     {
@@ -123,7 +124,7 @@ var wolf = {
   minTotalHP: 25,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "Ø",
+  healthBar: "Ø",
   missChance: 0.3,
   attacks: [
     {
@@ -158,7 +159,7 @@ var troll = {
   minTotalHP: 6500,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "»",
+  healthBar: "»",
   missChance: 0.2,
   attacks: [
     {
@@ -193,7 +194,7 @@ var snake = {
   minTotalHP: 10,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "s",
+  healthBar: "s",
   missChance: 0.3,
   attacks: [
     {
@@ -228,7 +229,7 @@ var ghost = {
   minTotalHP: 1,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "~",
+  healthBar: "~",
   missChance: 0.25,
   attacks: [
     {
@@ -263,7 +264,7 @@ var thief = {
   minTotalHP: 75,
   totalHP: 0,
   currentHP: 0,
-  barCharacter: "¦",
+  healthBar: "¦",
   missChance: 0.05,
   attacks: [
     {
@@ -466,7 +467,7 @@ function creatureHPBar(creature) {
   }
 
   for (let i = 0; i < barLength; i++) {
-    bar += creature.barCharacter;
+    bar += creature.healthBar;
   }
 
   for (let i = 0; i < emptyLength; i++) {

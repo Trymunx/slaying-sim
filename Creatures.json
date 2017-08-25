@@ -1,0 +1,262 @@
+{
+  "dragon": {
+    "name": "dragon",
+    "maxTotalHP": 50000,
+    "minTotalHP": 15000,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "#",
+    "missChance": 0.2,
+    "attacks": [
+      {
+        "name": "maul",
+        "chance": 0.85,
+        "minDamage": 12,
+        "maxDamage": 27,
+        "damage": 0,
+        "message": "The dragon mauls you, hitting you for "
+      },
+      {
+        "name": "breath",
+        "chance": 1,
+        "minDamage": 17,
+        "maxDamage": 42,
+        "damage": 0,
+        "message": "You raise you shield but the dragon breaths fire, hitting you for "
+      }
+    ],
+    "goldDropChance": 0.95,
+    "goldDropMultiplier": 1500,
+    "potionDropChance": 0.95,
+    "potionDropMultiplier": 5,
+    "spawnChance": 0.25,
+    "spawnMessage": "It roars and spreads its wings as you attack.",
+    "deathMessage": "With a deafening roar, the dragon lets out a final burst of flaming breath and falls, shaking the ground."
+  },
+
+  "rat": {
+    "name": "rat",
+    "maxTotalHP": 150,
+    "minTotalHP": 5,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "o",
+    "missChance": 0.5,
+    "attacks": [
+      {
+        "name": "bite",
+        "chance": 0.85,
+        "minDamage": 1,
+        "maxDamage": 4,
+        "damage": 0,
+        "message": "The rat bites you for "
+      },
+      {
+        "name": "scratch",
+        "chance": 1,
+        "minDamage": 3,
+        "maxDamage": 6,
+        "damage": 0,
+        "message": "The rat scratches you, you lose "
+      }
+    ],
+    "goldDropChance": 0.1,
+    "goldDropMultiplier": 1,
+    "potionDropChance": 0.05,
+    "potionDropMultiplier": 1,
+    "spawnChance": 1,
+    "spawnMessage": "It squeaks and bares its teeth as you attack.",
+    "deathMessage": "With a squeal the rat dies."
+  },
+
+  "wolf": {
+    "name": "wolf",
+    "maxTotalHP": 400,
+    "minTotalHP": 25,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "Ø",
+    "missChance": 0.3,
+    "attacks": [
+      {
+        "name": "bite",
+        "chance": 0.85,
+        "minDamage": 4,
+        "maxDamage": 8,
+        "damage": 0,
+        "message": "The wolf bites you for "
+      },
+      {
+        "name": "slash",
+        "chance": 1,
+        "minDamage": 6,
+        "maxDamage": 14,
+        "damage": 0,
+        "message": "The wolf rears up and slashes you, hitting for "
+      }
+    ],
+    "goldDropChance": 0.35,
+    "goldDropMultiplier": 24,
+    "potionDropChance": 0.3,
+    "potionDropMultiplier": 2,
+    "spawnChance": 0.85,
+    "spawnMessage": "It growls as you attack, its hackles raised.",
+    "deathMessage": "The wolf dies with a whine."
+  },
+
+  "troll": {
+    "name": "troll",
+    "maxTotalHP": 28000,
+    "minTotalHP": 6500,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "»",
+    "missChance": 0.2,
+    "attacks": [
+      {
+        "name": "maul",
+        "chance": 0.85,
+        "minDamage": 7,
+        "maxDamage": 15,
+        "damage": 0,
+        "message": "The troll mauls you for "
+      },
+      {
+        "name": "savage",
+        "chance": 1,
+        "minDamage": 12,
+        "maxDamage": 27,
+        "damage": 0,
+        "message": "The troll rushes at you, knocking you off your feet and savaging you for "
+      }
+    ],
+    "goldDropChance": 0.75,
+    "goldDropMultiplier": 375,
+    "potionDropChance": 0.65,
+    "potionDropMultiplier": 3,
+    "spawnChance": 0.45,
+    "spawnMessage": "It roars incoherently as you attack, beating its chest.",
+    "deathMessage": "The troll bellows and keels over, dead."
+  },
+
+  "snake": {
+    "name": "snake",
+    "maxTotalHP": 50,
+    "minTotalHP": 10,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "s",
+    "missChance": 0.3,
+    "attacks": [
+      {
+        "name": "constrict",
+        "chance": 0.65,
+        "minDamage": 2,
+        "maxDamage": 10,
+        "damage": 0,
+        "message": "The snake wraps itself around you, constricting you for "
+      },
+      {
+        "name": "bite",
+        "chance": 1,
+        "minDamage": 6,
+        "maxDamage": 18,
+        "damage": 0,
+        "message": "The snake bites you at lightning speed, hitting you for "
+      }
+    ],
+    "goldDropChance": 0.2,
+    "goldDropMultiplier": 9,
+    "potionDropChance": 0.35,
+    "potionDropMultiplier": 1,
+    "spawnChance": 0.9,
+    "spawnMessage": "It hisses and bares its fangs as you attack.",
+    "deathMessage": "The snake tries to slither away before curling up, dead."
+  },
+
+  "ghost": {
+    "name": "ghost",
+    "maxTotalHP": 100,
+    "minTotalHP": 1,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "~",
+    "missChance": 0.25,
+    "attacks": [
+      {
+        "name": "fear",
+        "chance": 0.9,
+        "minDamage": 5,
+        "maxDamage": 12,
+        "damage": 0,
+        "message": "The ghost rears its spectral form, fearing you for "
+      },
+      {
+        "name": "magic",
+        "chance": 1,
+        "minDamage": 10,
+        "maxDamage": 22,
+        "damage": 0,
+        "message": "The ghost channels spectral energy into a magical attack that hits you for "
+      }
+    ],
+    "goldDropChance": 0.5,
+    "goldDropMultiplier": 45,
+    "potionDropChance": 0.3,
+    "potionDropMultiplier": 1,
+    "spawnchance": 0.65,
+    "spawnMessage": "You see its face contort in anger as you attack, swirling in and out of view.",
+    "deathMessage": "The ghost's form dissipates into the surroundings, released from the physical world."
+  },
+
+  "thief": {
+    "name": "thief",
+    "maxTotalHP": 200,
+    "minTotalHP": 75,
+    "totalHP": 0,
+    "currentHP": 0,
+    "healthBar": "¦",
+    "missChance": 0.05,
+    "attacks": [
+      {
+        "name": "punch",
+        "chance": 0.65,
+        "minDamage": 1,
+        "maxDamage": 3,
+        "damage": 0,
+        "message": "The thief lashes out, punching you for "
+      },
+      {
+        "name": "kick",
+        "chance": 0.8,
+        "minDamage": 2,
+        "maxDamage": 7,
+        "damage": 0,
+        "message": "The thief kicks you, hitting you for "
+      },
+      {
+        "name": "headbutt",
+        "chance": 0.82,
+        "minDamage": 2,
+        "maxDamage": 6,
+        "damage": 0,
+        "message": "The thief suddenly lunges headfirst at you. He headbuts you for "
+      },
+      {
+        "name": "stab",
+        "chance": 1,
+        "minDamage": 6,
+        "maxDamage": 12,
+        "damage": 0,
+        "message": "The thief draws his dagger and lunges, stabbing you for "
+      }
+    ],
+    "goldDropChance": 0.8,
+    "goldDropMultiplier": 90,
+    "potionDropChance": 0.35,
+    "potionDropMultiplier": 2,
+    "spawnChance": 0.8,
+    "spawnMessage": "It makes a grab for your gold but you are too quick. It attacks you in anger.",
+    "deathMessage": "You strike the final blow, killing the thief. All of his possessions are yours now!"
+  }
+}

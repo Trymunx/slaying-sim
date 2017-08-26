@@ -2,7 +2,7 @@
 
 It'll be here when it's ready, until then use the runGame script to run the version 3 of the game.
 
-# To run:
+### To run:
 1. Make the code executable.
   `chmod u+x runGame.sh`
 

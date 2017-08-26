@@ -433,7 +433,7 @@ function creatureDrop(creature) {
   }
   var potionDrop;
   if (Math.random() <= creature.potionDropChance) {
-    potionDrop = Math.round(creature.potionDropMultiplier);
+    potionDrop = Math.round(getRandomInt(1, creature.potionDropMultiplier);
     player.potions += potionDrop;
   } else {
     potionDrop = false;

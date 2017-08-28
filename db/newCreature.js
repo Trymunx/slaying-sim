@@ -1,5 +1,5 @@
-const RNG = require("./utils/RNG.js");
-const CreatureDb = require("../db/Creatures.json");
+const RNG = require("../src/utils/RNG.js");
+const CreatureDb = require("./Creatures.json");
 const creatures = Object.keys(CreatureDb);
 
 function newCreature (name) {

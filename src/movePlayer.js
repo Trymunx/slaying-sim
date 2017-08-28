@@ -31,17 +31,17 @@ function movePlayer(map, direction) {
       }
       break;
     case "east":
-      if (playerPos % sideLength === 0) {
+      if ((playerPos + 1) % sideLength === 0) {
         console.log("You can't move any further East!");
       } else {
-        playerPos--;
+        playerPos++;
       }
       break;
     case "west":
-      if ((playerPos + 1) % sideLength === 0) {
+      if (playerPos % sideLength === 0) {
         console.log("You can't move any further West!");
       } else {
-        playerPos++;
+        playerPos--;
       }
       break;
     default:

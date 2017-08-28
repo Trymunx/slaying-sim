@@ -7,65 +7,94 @@ function drawMap (map) {
 
   // Add horizontal borders, top border padded with a leading space,
   //  bottom padded with leading and trailing pipe
-  var horizBorderLength = (2 * sideLength) + 3;
-  // Vertical borders are the same as the side length
+  var horizLength = (3 * sideLength) + 8;
+  // Vertical borders are (2 * sidelength) + 4
+  var vertLength = (2 * sideLength) + 4;
 
   // Add array to hold each line of the drawn map
   var drawnMap = [];
-  drawnMap.length = sideLength + 3;
+  drawnMap.length = vertLength;
 
   // Top border begins with a space
   var topBorder = " ";
-  for (let i = 0; i < horizBorderLength; i++) {
+  for (let i = 0; i < horizLength; i++) {
     topBorder += "_";
   }
   drawnMap[0] = topBorder;
 
-  // Second line is always spaces padded with pipes
-  var secondLine = "|";
-  for (let i = 0; i < horizBorderLength; i++) {
-    secondLine += " ";
+  // Blank lines are always spaces padded with pipes
+  var blankLine = "{";
+  for (let i = 0; i < horizLength; i++) {
+    blankLine += " ";
   }
-  drawnMap[1] = secondLine + "|";
+  blankLine += "}";
+
+  // Second and third lines are always blank
+  drawnMap[1] = blankLine;
+  drawnMap[2] = blankLine
 
   // Bottom border is always underscores padded with pipes
-  var bottomBorder = "|";
-  for (let i = 0; i < horizBorderLength; i++) {
+  var bottomBorder = "{";
+  for (let i = 0; i < horizLength; i++) {
     bottomBorder += "_";
   }
-  drawnMap[(drawnMap.length - 1)] = bottomBorder + "|";
+  bottomBorder += "}";
+  drawnMap[(vertLength)] = bottomBorder;
 
-  // Gets the creature healthBar character
-  var mapCreatures = [];
+  // Gets the central map content
+  var mapContent = [];
+  for (let i = 0; i < sideLength; i++) {
+    mapContent[i] = "";
+  }
   for (var i = 0; i < sideLength; i++) {
     for (let j = (i * sideLength); j < ((i + 1) * sideLength); j++) {
-      if (j % sideLength === 0) {
-        if (map[j].playerIsHere) {
-          mapCreatures[i] = "* ";
-        } else if (map[j].creature !== null) {
-          mapCreatures[i] = map[j].creature.attributes.healthBar + " ";
+      // // First check for bridgeUpper
+      // if (map[j+sideLength].terrain === "bridgeUpper") {
+      //
+      // } else if (map[j+sideLength].terrain === "bridgeLower") { // Then check for bridgeLower
+      //
+      // }
+      if (map[j].terrain === "river") {
+        if ((j + sideLength) < map.length) {
+          if (map[(j+sideLength - 1)].terrain === "river") {
+            mapContent[i] += "/ /";
+          } else if (map[(j+sideLength)].terrain === "river") {
+            mapContent[i] += "| |";
+          } else {
+            mapContent[i] += "\\ \\";
+          }
         } else {
-          mapCreatures[i] = "· ";
+          if (map[(j-sideLength - 1)].terrain === "river") {
+            mapContent[i] += "/ /";
+          } else if (map[(j-sideLength)].terrain === "river") {
+            mapContent[i] += "| |";
+          } else {
+            mapContent[i] += "\\ \\";
+          }
         }
+      } else if (map[j].playerIsHere) {
+        mapContent[i] += " * ";
+      } else if (map[j].creature !== null) {
+        mapContent[i] += " " + map[j].creature.attributes.healthBar + " ";
+      } else if (map[j].terrain === "bridge") {
+        mapContent[i] += "III";
+      } else if (map[j].terrain === "bridgeUpper" || map[j].terrain === "bridgeLower") {
+        mapContent[i] += "| |";
       } else {
-        if (map[j].playerIsHere) {
-          mapCreatures[i] += "* ";
-        } else if (map[j].creature !== null) {
-          mapCreatures[i] += map[j].creature.attributes.healthBar + " ";
-        } else {
-          mapCreatures[i] += "· ";
-        }
+        mapContent[i] += " · ";
       }
     }
   }
 
-  // Each line should print a pipe, then two spaces, then creatures on
-  //  each grid space with a space inbetween, then two spaces and a final
-  //  pipe (e.g. |  s o x  |)
-  for (let i = 0; i < sideLength; i++) {
-    drawnMap[i+2] = "|  " + mapCreatures[i] + " |";
+  // Each line should print a pipe, then three spaces, then creatures on
+  //  each grid space with two spaces inbetween, then three spaces and a final
+  //  pipe (e.g. |    s  o  x    |)
+  for (let j = 3; j < vertLength - 1; j+=2) {
+    drawnMap[j] = "{    " + mapContent[(((j-1)/2)-1)] + "    }";
   }
-
+  for (let i = 4; i < vertLength; i+=2) {
+    drawnMap[i] = blankLine;
+  }
   for (let i in drawnMap) {
     console.log(drawnMap[i]);
   }
@@ -73,3 +102,34 @@ function drawMap (map) {
 }
 
 module.exports = drawMap;
+
+
+
+//
+// if (j % sideLength === 0) {
+//   if (map[j].terrain === "river") {
+//     if ((j + sideLength) < map.length) {
+//       if (map[(j+sideLength - 1)].terrain === "river") {
+//         mapContent[i] = "/ /";
+//       } else if (map[(j+sideLength)].terrain === "river") {
+//         mapContent[i] = "| |";
+//       } else {
+//         mapContent[i] = "\\ \\";
+//       }
+//     } else {
+//       if (map[(j-sideLength - 1)].terrain === "river") {
+//         mapContent[i] = "/ /";
+//       } else if (map[(j-sideLength)].terrain === "river") {
+//         mapContent[i] = "| |";
+//       } else {
+//         mapContent[i] = "\\ \\";
+//       }
+//     }
+//   } else if (map[j].playerIsHere) {
+//     mapContent[i] = " * ";
+//   } else if (map[j].creature !== null) {
+//     mapContent[i] = " " + map[j].creature.attributes.healthBar + " ";
+//   } else {
+//     mapContent[i] = " · ";
+//   }
+// } else {

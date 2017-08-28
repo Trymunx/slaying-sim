@@ -48,9 +48,6 @@ function genMap(sideLength) {
     };
   }
 
-  // Place player on a random tile in the map
-  map[(Math.round(RNG(mapSize-1)))].playerIsHere = true;
-
   // Generate up to one creature per tile
   for (i=0; i < mapSize; i++) {
     // Check to see if there is a creature on that tile, if not set to null
@@ -59,6 +56,18 @@ function genMap(sideLength) {
       map[i].creature = newCreature(spawnedCreature);
     } else {
       map[i].creature = null;
+    }
+  }
+
+  // Place player on an empty tile
+  var randPos = Math.round(RNG(mapSize-1));
+  var playerPlaced = false;
+  while (!playerPlaced) {
+    if (map[randPos].creature !== null) {
+      randPos = Math.round(RNG(mapSize-1));
+    } else {
+      map[randPos].playerIsHere = true;
+      playerPlaced = true;
     }
   }
 

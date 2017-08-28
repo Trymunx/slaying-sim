@@ -13,7 +13,7 @@ function spawnCreature() {
     spawnRoll[i] = RNG() * (CreatureDb[creatures[i]].attributes.spawnChance);
   }
   // Add a final value for no creatures spawning
-  spawnRoll.push(RNG() * 2);
+  spawnRoll.push(RNG() * 3);
 
   // creatureIndex is the position in the creatures array
   var creatureIndex = 0;

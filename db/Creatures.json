@@ -1281,7 +1281,7 @@
       "minTotalHP": 1,
       "totalHP": 0,
       "currentHP": 0,
-      "healthBar": "·",
+      "healthBar": "r",
       "spawnChance": 0.75,
       "aggressive": false
     },

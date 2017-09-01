@@ -73,7 +73,7 @@ function drawMap (map) {
           }
         }
       } else if (map[j].playerIsHere) {
-        mapContent[i] += " * ";
+        mapContent[i] += "[*]";
       } else if (map[j].creature !== null) {
         mapContent[i] += " " + map[j].creature.attributes.healthBar + " ";
       } else if (map[j].terrain === "bridge") {

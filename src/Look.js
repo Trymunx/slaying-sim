@@ -8,7 +8,7 @@ function look(map) {
   } else if (map[playerPos].terrain === "bridge") {
     console.log("You are standing on a bridge.");
   } else {
-    console.log("You look around but see nothing here.");
+    console.log("You look around but see nothing but trees.");
   }
 }
 

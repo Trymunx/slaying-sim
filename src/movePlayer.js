@@ -58,7 +58,6 @@ function movePlayer(map, direction) {
   map[oldPlayerPos].playerIsHere = false;
   map[playerPos].playerIsHere = true;
 
-  drawMap(map);
   look(map);
 }
 

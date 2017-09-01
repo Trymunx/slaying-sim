@@ -154,7 +154,7 @@ function genMap(sideLength) {
   var randPos = Math.round(RNG(mapSize-1));
   var playerPlaced = false;
   while (!playerPlaced) {
-    if (map[randPos].creature !== null || map[randPos].terrain === true) {
+    if (map[randPos].creature !== null || map[randPos].terrain.length !== 0) {
       randPos = Math.round(RNG(mapSize-1));
     } else {
       map[randPos].playerIsHere = true;
